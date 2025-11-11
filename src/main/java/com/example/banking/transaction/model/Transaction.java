@@ -17,12 +17,12 @@ public record Transaction(
         Instant createdAt
 ) {
     public Transaction {
-        Objects.requireNonNull(accountId, "accountId must not be null");
-        Objects.requireNonNull(direction, "direction must not be null");
-        Objects.requireNonNull(amount, "amount must not be null");
-        Objects.requireNonNull(currencyCode, "currencyCode must not be null");
-        Objects.requireNonNull(description, "description must not be null");
-        Objects.requireNonNull(balanceAfter, "balanceAfter must not be null");
-        Objects.requireNonNull(createdAt, "createdAt must not be null");
+        Objects.requireNonNull(accountId, "Transaction accountId must not be null");
+        Objects.requireNonNull(direction, "Transaction direction must not be null");
+        Objects.requireNonNull(amount, "Transaction amount must not be null");
+        Objects.requireNonNull(currencyCode, "Transaction currencyCode must not be null");
+        Objects.requireNonNull(description, "Transaction description must not be null");
+        Objects.requireNonNull(balanceAfter, "Transaction balanceAfter must not be null");
+        Objects.requireNonNull(createdAt, "Transaction createdAt must not be null");
     }
 }
