@@ -1,4 +1,4 @@
-package com.example.banking.account.model;
+package com.example.banking.account;
 
 import java.time.Instant;
 import java.util.Arrays;

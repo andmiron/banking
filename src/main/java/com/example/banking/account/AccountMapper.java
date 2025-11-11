@@ -1,6 +1,5 @@
-package com.example.banking.account.mapper;
+package com.example.banking.account;
 
-import com.example.banking.account.model.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +14,5 @@ public interface AccountMapper {
     Optional<Account> findById(@Param("id") Long id);
 
     Optional<Account> findByCustomerId(@Param("customerId") UUID customerId);
-
-    void update(Account account);
 
 }

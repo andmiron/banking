@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.banking.account.mapper.AccountMapper">
+<mapper namespace="com.example.banking.account.AccountMapper">
 
-    <resultMap id="accountResultMap" type="com.example.banking.account.model.Account">
+    <resultMap id="accountResultMap" type="com.example.banking.account.Account">
         <id property="id" column="id"/>
         <result property="customerId" column="customer_id"/>
         <result property="accountStatus" column="account_status"/>
@@ -12,9 +12,9 @@
         <result property="createdAt" column="created_at"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.banking.account.model.Account" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.example.banking.account.Account" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO accounts (customer_id, status, country)
-        VALUES (#{customerId}, #{account_status}, #{country})
+        VALUES (#{customerId}, #{accountStatus}, #{country})
     </insert>
 
     <select id="findById" resultMap="accountResultMap">
@@ -29,7 +29,7 @@
         WHERE customer_id = #{customerId}
     </select>
 
-    <update id="update" parameterType="com.example.banking.account.model.Account">
+    <update id="update" parameterType="com.example.banking.account.Account">
         UPDATE accounts
         SET
             customer_id = #{customerId},
