@@ -1,6 +1,6 @@
-package com.example.banking.transaction.model;
+package com.example.banking.transaction;
 
-import com.example.banking.balance.model.BalanceCurrency;
+import com.example.banking.balance.BalanceCurrency;
 
 import java.math.BigDecimal;
 import java.time.Instant;

@@ -1,7 +1,6 @@
-package com.example.banking.transaction.mapper;
+package com.example.banking.transaction;
 
-import com.example.banking.transaction.model.Transaction;
-import com.example.banking.balance.model.BalanceCurrency;
+import com.example.banking.balance.BalanceCurrency;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,5 +17,7 @@ public interface TransactionMapper {
     List<Transaction> findByAccountId(@Param("accountId") Long accountId);
 
     List<Transaction> findByAccountIdAndCurrency(@Param("accountId") Long accountId, @Param("currencyCode") BalanceCurrency currencyCode);
+
+    Optional<Transaction> findLatestByAccountId(@Param("accountId") Long accountId);
 
 }
