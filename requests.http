@@ -1,0 +1,44 @@
+@baseUrl = http://localhost:8080
+@accountId = 1
+
+### Create account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "customerId": 1001,
+  "country": "EE",
+  "currencies": ["EUR", "USD"]
+}
+
+### Get account
+GET {{baseUrl}}/accounts/{{accountId}}
+Accept: application/json
+
+### Create transaction (deposit)
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "accountId": {{accountId}},
+  "amount": 150.00,
+  "currency": "EUR",
+  "direction": "IN",
+  "description": "Initial deposit"
+}
+
+### Create transaction (withdrawal)
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "accountId": {{accountId}},
+  "amount": 50.00,
+  "currency": "EUR",
+  "direction": "OUT",
+  "description": "Withdrawal"
+}
+
+### List transactions
+GET {{baseUrl}}/accounts/{{accountId}}/transactions
+Accept: application/json
