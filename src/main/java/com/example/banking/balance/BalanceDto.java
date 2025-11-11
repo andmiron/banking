@@ -3,7 +3,7 @@ package com.example.banking.balance;
 import java.math.BigDecimal;
 
 public record BalanceDto(
-        BalanceCurrency currency,
+        BalanceCurrencyCode currency,
         BigDecimal availableAmount
 ) {
 }

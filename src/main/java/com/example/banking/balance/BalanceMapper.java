@@ -12,12 +12,12 @@ public interface BalanceMapper {
 
     void insert(Balance balance);
 
-    Optional<Balance> findByAccountIdAndCurrency(@Param("accountId") Long accountId, @Param("balanceCurrencyCode") BalanceCurrency balanceCurrencyCode);
+    Optional<Balance> findByAccountIdAndCurrency(@Param("accountId") Long accountId, @Param("balanceCurrencyCode") BalanceCurrencyCode balanceCurrencyCode);
 
     List<Balance> findByAccountId(@Param("accountId") Long accountId);
 
     void updateAmount(@Param("newAmount") BigDecimal newAmount,
                       @Param("accountId") Long accountId,
-                      @Param("balanceCurrencyCode") BalanceCurrency balanceCurrencyCode);
+                      @Param("balanceCurrencyCode") BalanceCurrencyCode balanceCurrencyCode);
 
 }

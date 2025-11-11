@@ -1,6 +1,6 @@
 package com.example.banking.balance;
 
-public enum BalanceCurrency {
+public enum BalanceCurrencyCode {
     EUR,
     SEK,
     GBP,

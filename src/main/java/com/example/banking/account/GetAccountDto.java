@@ -10,5 +10,4 @@ public record GetAccountDto(
         UUID customerId,
         List<BalanceDto> balances
 ) {
-
 }

@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 
 public record CreateBalanceDto(
         @NotNull Long accountId,
-        @NotNull BalanceCurrency currency,
+        @NotNull BalanceCurrencyCode currency,
         @NotNull @DecimalMin(value = "0.00") BigDecimal initialAmount
 ) {}

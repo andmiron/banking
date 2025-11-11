@@ -3,7 +3,9 @@ package com.example.banking.account;
 import com.example.banking.balance.Balance;
 import com.example.banking.balance.BalanceDto;
 import com.example.banking.balance.BalanceMapper;
+import com.example.banking.balance.BalanceCurrencyCode;
 import com.example.banking.common.exception.AccountNotFoundException;
+import com.example.banking.common.exception.InvalidCurrencyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,12 @@ public class AccountService {
         accountMapper.insert(account);
 
         Long accountId = account.id();
-        List<Balance> balances = request.currencies().stream()
+
+        List<BalanceCurrencyCode> currencies = request.currencies().stream()
+                .map(this::parseCurrency)
+                .toList();
+
+        List<Balance> balances = currencies.stream()
                 .distinct()
                 .map(currency -> new Balance(accountId, AccountStatus.ACTIVE, currency, BigDecimal.ZERO, now, now))
                 .toList();
@@ -44,7 +51,7 @@ public class AccountService {
                 accountId,
                 customerId,
                 balances.stream()
-                        .map(b -> new BalanceDto(b.balanceCurrencyCode(), b.availableAmount()))
+                        .map(balance -> new BalanceDto(balance.balanceCurrencyCode(), balance.availableAmount()))
                         .toList()
         );
     }
@@ -59,5 +66,16 @@ public class AccountService {
                 .toList();
 
         return new GetAccountDto(account.id(), account.customerId(), balances);
+    }
+
+    private BalanceCurrencyCode parseCurrency(String value) {
+        if (value == null) {
+            throw new InvalidCurrencyException("null");
+        }
+        try {
+            return BalanceCurrencyCode.valueOf(value.trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw new InvalidCurrencyException(value);
+        }
     }
 }

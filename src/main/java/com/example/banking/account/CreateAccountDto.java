@@ -1,6 +1,5 @@
 package com.example.banking.account;
 
-import com.example.banking.balance.BalanceCurrency;
 import com.example.banking.common.IsoCountry;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +11,6 @@ import java.util.UUID;
 public record CreateAccountDto(
         @NotNull UUID customerId,
         @NotBlank @Size(min = 2, max = 2) @IsoCountry String country,
-        @NotNull @Size(min = 1) List<BalanceCurrency> currencies
+        @NotNull @Size(min = 1) List<String> currencies
 ) {
 }
