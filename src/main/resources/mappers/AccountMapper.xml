@@ -12,7 +12,7 @@
         <result property="createdAt" column="created_at"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.banking.account.Account" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.example.banking.account.Account" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO accounts (customer_id, status, country)
         VALUES (#{customerId}, #{accountStatus}, #{country})
     </insert>

@@ -4,7 +4,7 @@ import com.example.banking.balance.BalanceCurrency;
 
 import java.math.BigDecimal;
 
-public record TransactionResponse(
+public record GetTransactionDto(
         Long transactionId,
         Long accountId,
         BigDecimal amount,

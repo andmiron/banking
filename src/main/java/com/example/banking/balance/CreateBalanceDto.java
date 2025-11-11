@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record CreateBalanceRequest(
+public record CreateBalanceDto(
         @NotNull Long accountId,
         @NotNull BalanceCurrency currency,
         @NotNull @DecimalMin(value = "0.00") BigDecimal initialAmount

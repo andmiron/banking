@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record CreateTransactionRequest(
+public record CreateTransactionDto(
         @NotNull Long accountId,
         @NotNull @DecimalMin(value = "0.00", inclusive = false) BigDecimal amount,
         @NotNull BalanceCurrency currency,

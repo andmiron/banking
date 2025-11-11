@@ -2,7 +2,7 @@ package com.example.banking.transaction;
 
 import java.util.List;
 
-public record GetTransactionsResponse(
+public record GetTransactionsDto(
         Long accountId,
-        List<TransactionResponse> transactions
+        List<GetTransactionDto> transactions
 ) {}
