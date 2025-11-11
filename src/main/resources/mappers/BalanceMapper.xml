@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.banking.balance.mapper.BalanceMapper">
+
+    <resultMap id="balanceResultMap" type="com.example.banking.balance.model.Balance">
+        <id property="accountId" column="account_id"/>
+        <id property="balanceCurrencyCode" column="currency_code"/> <!-- Added for composite PK -->
+        <result property="accountStatus" column="status"/>
+        <result property="availableAmount" column="available_amount"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.banking.balance.model.Balance">
+        INSERT INTO balances (account_id, status, currency_code, available_amount)
+        VALUES (#{accountId}, #{status}, #{balanceCurrencyCode}, #{availableAmount})
+    </insert>
+
+    <select id="findByAccountIdAndCurrency" resultMap="balanceResultMap">
+        SELECT account_id, status, currency_code, available_amount, created_at, updated_at
+        FROM balances
+        WHERE account_id = #{accountId} AND currency_code = #{balanceCurrencyCode}
+    </select>
+
+    <select id="findByAccountId" resultMap="balanceResultMap">
+        SELECT account_id, status, currency_code, available_amount, created_at, updated_at
+        FROM balances
+        WHERE account_id = #{accountId}
+    </select>
+
+    <update id="updateAmount">
+        UPDATE balances
+        SET
+            available_amount = #{amount},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE account_id = #{accountId} AND currency_code = #{balanceCurrencyCode}
+    </update>
+
+    <update id="update" parameterType="com.example.banking.balance.model.Balance">
+        UPDATE balances
+        SET
+            status = #{accountStatus},
+            available_amount = #{availableAmount},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE account_id = #{accountId} AND currency_code = #{balanceCurrencyCode}
+    </update>
+
+</mapper>
+
