@@ -80,3 +80,6 @@ Requests/sec:     17.30
 Transfer/sec:      4.34KB
 ```
 
+# Usage of AI
+Main tool that was used is CodexCLI
+
