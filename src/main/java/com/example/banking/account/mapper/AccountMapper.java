@@ -18,5 +18,4 @@ public interface AccountMapper {
 
     void update(Account account);
 
-    void deleteById(@Param("id") Long id);
 }

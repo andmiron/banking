@@ -16,11 +16,11 @@ public record Balance(
 ) {
 
     public Balance {
-        Objects.requireNonNull(accountId, "accountId must not be null");
-        Objects.requireNonNull(accountStatus, "accountStatus must not be null");
-        Objects.requireNonNull(balanceCurrencyCode, "balanceCurrencyCode must not be null");
-        Objects.requireNonNull(availableAmount, "availableAmount must not be null");
-        Objects.requireNonNull(createdAt, "createdAt must not be null");
-        Objects.requireNonNull(updatedAt, "updatedAt must not be null");
+        Objects.requireNonNull(accountId, "Balance accountId must not be null");
+        Objects.requireNonNull(accountStatus, "Balance accountStatus must not be null");
+        Objects.requireNonNull(balanceCurrencyCode, "Balance balanceCurrencyCode must not be null");
+        Objects.requireNonNull(availableAmount, "Balance availableAmount must not be null");
+        Objects.requireNonNull(createdAt, "Balance createdAt must not be null");
+        Objects.requireNonNull(updatedAt, "Balance updatedAt must not be null");
     }
 }
