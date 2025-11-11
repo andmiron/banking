@@ -3,8 +3,8 @@ package com.example.banking;
 import com.example.banking.account.AccountService;
 import com.example.banking.account.CreateAccountDto;
 import com.example.banking.account.GetAccountDto;
-import com.example.banking.balance.Balance;
 import com.example.banking.balance.BalanceDto;
+import com.example.banking.common.exception.InvalidCurrencyException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,22 +43,37 @@ class AccountServiceIntegrationTest {
         assertEquals(fetchedBalances, createdAccount.balances());
     }
 
-//    @Test
-//    void createAccount_invalidCurrency_throws() {
-//        CreateAccountDto invalid = new CreateAccountDto(
-//                UUID.randomUUID(),
-//                "EE",
-//                List.of("EUR", "XYZ")
-//        );
-//
-//        assertThatThrownBy(() -> accountService.createAccount(invalid))
-//                .isInstanceOf(InvalidCurrencyException.class)
-//                .hasMessageContaining("XYZ");
-//    }
-//
-//    @Test
-//    void getAccount_missing_throwsNotFound() {
-//        assertThatThrownBy(() -> accountService.getAccount(Long.MAX_VALUE))
-//                .isInstanceOf(AccountNotFoundException.class);
-//    }
+    @Test
+    void createAccount_withInvalidCurrency_throwsInvalidCurrencyException() {
+        CreateAccountDto request = new CreateAccountDto(
+                1L,
+                "EE",
+                List.of("XYZ")
+        );
+
+        InvalidCurrencyException exception = assertThrows(
+                InvalidCurrencyException.class,
+                () -> accountService.createAccount(request)
+        );
+
+        assertTrue(exception.getMessage().contains("XYZ"));
+    }
+
+
+
+    @Test
+    void createAccount_withMixedValidAndInvalidCurrencies_throwsInvalidCurrencyException() {
+        CreateAccountDto request = new CreateAccountDto(
+                1L,
+                "EE",
+                List.of("EUR", "INVALID", "USD")
+        );
+
+        InvalidCurrencyException exception = assertThrows(
+                InvalidCurrencyException.class,
+                () -> accountService.createAccount(request)
+        );
+
+        assertTrue(exception.getMessage().contains("INVALID"));
+    }
 }
