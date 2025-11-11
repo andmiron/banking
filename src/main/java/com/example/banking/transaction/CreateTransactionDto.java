@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 public record CreateTransactionDto(
         @NotNull Long accountId,
-        @NotNull @DecimalMin(value = "0.00", inclusive = false) BigDecimal amount,
-        @NotNull BalanceCurrencyCode currency,
-        @NotNull Direction direction,
+        @NotNull BigDecimal amount,
+        @NotNull String currency,
+        @NotNull String direction,
         @NotBlank String description
 ) {
 }

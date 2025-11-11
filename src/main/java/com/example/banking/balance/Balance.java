@@ -1,6 +1,5 @@
 package com.example.banking.balance;
 
-import com.example.banking.balance.BalanceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

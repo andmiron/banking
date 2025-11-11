@@ -1,28 +1,23 @@
 package com.example.banking.transaction;
 
-import com.example.banking.balance.BalanceCurrency;
+import com.example.banking.balance.BalanceCurrencyCode;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Objects;
 
-public record Transaction(
-        Long id,
-        Long accountId,
-        Direction direction,
-        BigDecimal amount,
-        BalanceCurrency currencyCode,
-        String description,
-        BigDecimal balanceAfter,
-        Instant createdAt
-) {
-    public Transaction {
-        Objects.requireNonNull(accountId, "Transaction accountId must not be null");
-        Objects.requireNonNull(direction, "Transaction direction must not be null");
-        Objects.requireNonNull(amount, "Transaction amount must not be null");
-        Objects.requireNonNull(currencyCode, "Transaction currencyCode must not be null");
-        Objects.requireNonNull(description, "Transaction description must not be null");
-        Objects.requireNonNull(balanceAfter, "Transaction balanceAfter must not be null");
-        Objects.requireNonNull(createdAt, "Transaction createdAt must not be null");
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transaction {
+    private Long id;
+    private Long accountId;
+    private Direction direction;
+    private BigDecimal amount;
+    private BalanceCurrencyCode currencyCode;
+    private String description;
+    private BigDecimal balanceAfter;
+    private Instant createdAt;
 }

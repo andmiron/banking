@@ -15,7 +15,7 @@
         <result property="createdAt" column="created_at"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.example.banking.transaction.Transaction" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.example.banking.transaction.Transaction" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO transactions (account_id, direction, amount, currency_code, description, balance_after)
         VALUES (#{accountId}, #{direction}, #{amount}, #{currencyCode}, #{description}, #{balanceAfter})
     </insert>
