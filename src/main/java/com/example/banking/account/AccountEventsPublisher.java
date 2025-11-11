@@ -17,13 +17,21 @@ public class AccountEventsPublisher {
     }
 
     public void publishAccountCreated(Account account, List<BalanceDto> balances) {
+        publish(account, balances, AccountEventType.CREATED);
+    }
+
+    public void publishAccountUpdated(Account account, List<BalanceDto> balances) {
+        publish(account, balances, AccountEventType.UPDATED);
+    }
+
+    private void publish(Account account, List<BalanceDto> balances, AccountEventType type) {
         AccountEvent event = new AccountEvent(
                 account.getId(),
                 account.getCustomerId(),
                 account.getCountry(),
                 account.getAccountStatus(),
                 balances,
-                AccountEventType.CREATED,
+                type,
                 Instant.now()
         );
         eventPublisher.publishEvent(event);

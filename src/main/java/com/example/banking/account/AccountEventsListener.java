@@ -21,6 +21,7 @@ public class AccountEventsListener {
     public void onAccountEvent(AccountEvent event) {
         String routingKey = switch (event.type()) {
             case CREATED -> properties.routingKey().created();
+            case UPDATED -> properties.routingKey().updated();
         };
 
         rabbitTemplate.convertAndSend(

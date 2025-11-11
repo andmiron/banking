@@ -1,8 +1,11 @@
 package com.example.banking.transaction;
 
+import com.example.banking.account.Account;
+import com.example.banking.account.AccountEventsPublisher;
 import com.example.banking.account.AccountMapper;
 import com.example.banking.balance.BalanceMapper;
 import com.example.banking.balance.BalanceCurrencyCode;
+import com.example.banking.balance.BalanceDto;
 import com.example.banking.common.exception.AccountMissingException;
 import com.example.banking.common.exception.AccountNotFoundException;
 import com.example.banking.common.exception.DescriptionMissingException;
@@ -24,13 +27,16 @@ public class TransactionService {
     private final AccountMapper accountMapper;
     private final BalanceMapper balanceMapper;
     private final TransactionMapper transactionMapper;
+    private final AccountEventsPublisher accountEventsPublisher;
 
     public TransactionService(AccountMapper accountMapper,
                               BalanceMapper balanceMapper,
-                              TransactionMapper transactionMapper) {
+                              TransactionMapper transactionMapper,
+                              AccountEventsPublisher accountEventsPublisher) {
         this.accountMapper = accountMapper;
         this.balanceMapper = balanceMapper;
         this.transactionMapper = transactionMapper;
+        this.accountEventsPublisher = accountEventsPublisher;
     }
 
     @Transactional
@@ -93,6 +99,15 @@ public class TransactionService {
         );
 
         transactionMapper.insert(transaction);
+
+        Account account = accountMapper.findById(accountId)
+                .orElseThrow(() -> new AccountNotFoundException(accountId));
+
+        List<BalanceDto> balances = balanceMapper.findByAccountId(accountId).stream()
+                .map(b -> new BalanceDto(b.getBalanceCurrencyCode(), b.getAvailableAmount()))
+                .toList();
+
+        accountEventsPublisher.publishAccountUpdated(account, balances);
 
         return new GetTransactionDto(
                 transaction.getId(),
