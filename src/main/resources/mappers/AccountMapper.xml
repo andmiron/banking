@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.banking.account.mapper.AccountMapper">
+
+    <resultMap id="accountResultMap" type="com.example.banking.account.model.Account">
+        <id property="id" column="id"/>
+        <result property="customerId" column="customer_id"/>
+        <result property="accountStatus" column="account_status"/>
+        <result property="country" column="country"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.banking.account.model.Account" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO accounts (customer_id, status, country)
+        VALUES (#{customerId}, #{account_status}, #{country})
+    </insert>
+
+    <select id="findById" resultMap="accountResultMap">
+        SELECT id, customer_id, status, country, created_at
+        FROM accounts
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByCustomerId" resultMap="accountResultMap">
+        SELECT id, customer_id, status, country, created_at
+        FROM accounts
+        WHERE customer_id = #{customerId}
+    </select>
+
+    <update id="update" parameterType="com.example.banking.account.model.Account">
+        UPDATE accounts
+        SET
+            customer_id = #{customerId},
+            status = #{accountStatus},
+            country = #{country}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
