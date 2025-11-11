@@ -10,7 +10,7 @@ import org.testcontainers.utility.DockerImageName;
 
 
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfiguration {
+public class TestcontainersConfiguration {
 
     @Value("${testcontainers.postgres.image}")
     private String postgresImage;
