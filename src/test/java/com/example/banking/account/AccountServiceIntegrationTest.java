@@ -1,8 +1,6 @@
-package com.example.banking;
+package com.example.banking.account;
 
-import com.example.banking.account.AccountService;
-import com.example.banking.account.CreateAccountDto;
-import com.example.banking.account.GetAccountDto;
+import com.example.banking.TestcontainersConfiguration;
 import com.example.banking.balance.BalanceDto;
 import com.example.banking.common.exception.AccountNotFoundException;
 import com.example.banking.common.exception.InvalidCurrencyException;

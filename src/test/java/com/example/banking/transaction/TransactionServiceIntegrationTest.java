@@ -1,5 +1,6 @@
-package com.example.banking;
+package com.example.banking.transaction;
 
+import com.example.banking.TestcontainersConfiguration;
 import com.example.banking.account.AccountService;
 import com.example.banking.account.CreateAccountDto;
 import com.example.banking.account.GetAccountDto;
@@ -10,10 +11,6 @@ import com.example.banking.common.exception.InsufficientFundsException;
 import com.example.banking.common.exception.InvalidAmountException;
 import com.example.banking.common.exception.InvalidCurrencyException;
 import com.example.banking.common.exception.InvalidDirectionException;
-import com.example.banking.transaction.CreateTransactionDto;
-import com.example.banking.transaction.Direction;
-import com.example.banking.transaction.GetTransactionDto;
-import com.example.banking.transaction.TransactionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
