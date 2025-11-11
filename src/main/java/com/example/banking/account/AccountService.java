@@ -1,5 +1,6 @@
 package com.example.banking.account;
 
+import com.example.banking.balance.BalanceStatus;
 import com.example.banking.balance.Balance;
 import com.example.banking.balance.BalanceDto;
 import com.example.banking.balance.BalanceMapper;
@@ -41,7 +42,7 @@ public class AccountService {
 
         List<Balance> balances = currencies.stream()
                 .distinct()
-                .map(currency -> new Balance(accountId, AccountStatus.ACTIVE, currency, BigDecimal.ZERO, now, now))
+                .map(currency -> new Balance(accountId, BalanceStatus.ACTIVE, currency, BigDecimal.ZERO, now, now))
                 .toList();
 
         balances.forEach(balanceMapper::insert);

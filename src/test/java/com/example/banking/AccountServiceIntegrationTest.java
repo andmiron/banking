@@ -3,6 +3,8 @@ package com.example.banking;
 import com.example.banking.account.AccountService;
 import com.example.banking.account.CreateAccountDto;
 import com.example.banking.account.GetAccountDto;
+import com.example.banking.balance.Balance;
+import com.example.banking.balance.BalanceDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ActiveProfiles("test")
@@ -32,16 +33,14 @@ class AccountServiceIntegrationTest {
                 "EE",
                 List.of("eur", "USD")
         );
-        System.out.println(request);
 
-        GetAccountDto created = accountService.createAccount(request);
+        GetAccountDto createdAccount = accountService.createAccount(request);
 
-        assertThat(created.accountId()).isNotNull();
-        assertThat(created.customerId()).isEqualTo(request.customerId());
-        assertThat(created.balances()).hasSize(2);
+        assertNotNull(createdAccount.accountId());
+        assertEquals(createdAccount.customerId(), request.customerId());
 
-        GetAccountDto fetched = accountService.getAccount(created.accountId());
-        assertThat(fetched.balances()).hasSameSizeAs(created.balances());
+        List<BalanceDto> fetchedBalances = accountService.getAccount(createdAccount.accountId()).balances();
+        assertEquals(fetchedBalances, createdAccount.balances());
     }
 
 //    @Test

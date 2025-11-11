@@ -1,6 +1,6 @@
 package com.example.banking.balance;
 
-import com.example.banking.account.AccountStatus;
+import com.example.banking.balance.BalanceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.time.Instant;
 @AllArgsConstructor
 public class Balance{
         Long accountId;
-        AccountStatus accountStatus;
+        BalanceStatus balanceStatus;
         BalanceCurrencyCode balanceCurrencyCode;
         BigDecimal availableAmount;
         Instant createdAt;

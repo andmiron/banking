@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS balances (
     account_id      BIGINT      NOT NULL REFERENCES accounts (id),
     status          VARCHAR(16) NOT NULL DEFAULT 'ACTIVE',
     currency_code   CHAR(3)  NOT NULL REFERENCES currencies(code),
-    available_amount NUMERIC(10, 4) NOT NULL DEFAULT 0,
+    available_amount NUMERIC(10, 2) NOT NULL DEFAULT 0,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS transactions (
     id              BIGSERIAL PRIMARY KEY,
     account_id      BIGINT      NOT NULL REFERENCES accounts (id),
     direction       VARCHAR(3)  NOT NULL,
-    amount          NUMERIC(10, 4) NOT NULL,
+    amount          NUMERIC(10, 2) NOT NULL,
     currency_code   CHAR(3)  NOT NULL REFERENCES currencies(code),
     description     TEXT        NOT NULL,
-    balance_after   NUMERIC(10, 4) NOT NULL,
+    balance_after   NUMERIC(10, 2) NOT NULL,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT transactions_direction_chk CHECK (direction IN ('IN', 'OUT'))
 );
