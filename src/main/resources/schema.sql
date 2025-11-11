@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS accounts (
     id              BIGSERIAL   PRIMARY KEY,
-    customer_id     UUID        NOT NULL,
+    customer_id     BIGINT        NOT NULL,
     status          VARCHAR(16) NOT NULL DEFAULT 'ACTIVE',
     country         CHAR(2)     NOT NULL,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
