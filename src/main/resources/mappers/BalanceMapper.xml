@@ -38,13 +38,4 @@
         WHERE account_id = #{accountId} AND currency_code = #{balanceCurrencyCode}
     </update>
 
-    <update id="update" parameterType="com.example.banking.balance.Balance">
-        UPDATE balances
-        SET
-            status = #{accountStatus},
-            available_amount = #{availableAmount},
-            updated_at = CURRENT_TIMESTAMP
-        WHERE account_id = #{accountId} AND currency_code = #{balanceCurrencyCode}
-    </update>
-
 </mapper>
