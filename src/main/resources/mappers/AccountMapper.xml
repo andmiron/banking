@@ -7,7 +7,7 @@
     <resultMap id="accountResultMap" type="com.example.banking.account.Account">
         <id property="id" column="id"/>
         <result property="customerId" column="customer_id"/>
-        <result property="accountStatus" column="account_status"/>
+        <result property="accountStatus" column="status"/>
         <result property="country" column="country"/>
         <result property="createdAt" column="created_at"/>
     </resultMap>
@@ -28,14 +28,5 @@
         FROM accounts
         WHERE customer_id = #{customerId}
     </select>
-
-    <update id="update" parameterType="com.example.banking.account.Account">
-        UPDATE accounts
-        SET
-            customer_id = #{customerId},
-            status = #{accountStatus},
-            country = #{country}
-        WHERE id = #{id}
-    </update>
 
 </mapper>
