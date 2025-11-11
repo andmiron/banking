@@ -1,7 +1,5 @@
-package com.example.banking.balance.mapper;
+package com.example.banking.balance;
 
-import com.example.banking.balance.model.Balance;
-import com.example.banking.balance.model.BalanceCurrency;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,8 +16,8 @@ public interface BalanceMapper {
 
     List<Balance> findByAccountId(@Param("accountId") Long accountId);
 
-    void updateAmount(@Param("amount") BigDecimal amount, @Param("accountId") Long accountId, @Param("balanceCurrencyCode") BalanceCurrency balanceCurrencyCode);
-
-    void update(Balance balance);
+    void updateAmount(@Param("newAmount") BigDecimal newAmount,
+                      @Param("accountId") Long accountId,
+                      @Param("balanceCurrencyCode") BalanceCurrency balanceCurrencyCode);
 
 }

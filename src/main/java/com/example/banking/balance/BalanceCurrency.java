@@ -1,4 +1,4 @@
-package com.example.banking.balance.model;
+package com.example.banking.balance;
 
 public enum BalanceCurrency {
     EUR,
