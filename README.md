@@ -43,6 +43,12 @@ Since for the sake of test assignment I did not include migrations, on start, sq
 2. Or running docker compose file
 
 ```bash
+    git clone https://github.com/andmiron/banking.git
+    
+    cd banking
+    
+    cp .env.example .env
+
     docker compose up
     # OR
     docker compose up -d
