@@ -19,10 +19,14 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
     private final BalanceMapper balanceMapper;
+    private final AccountEventsPublisher accountEventsPublisher;
 
-    public AccountService(AccountMapper accountMapper, BalanceMapper balanceMapper) {
+    public AccountService(AccountMapper accountMapper,
+                          BalanceMapper balanceMapper,
+                          AccountEventsPublisher accountEventsPublisher) {
         this.accountMapper = accountMapper;
         this.balanceMapper = balanceMapper;
+        this.accountEventsPublisher = accountEventsPublisher;
     }
 
     @Transactional
@@ -47,12 +51,16 @@ public class AccountService {
 
         balances.forEach(balanceMapper::insert);
 
+        List<BalanceDto> balanceDtos = balances.stream()
+                .map(balance -> new BalanceDto(balance.getBalanceCurrencyCode(), balance.getAvailableAmount()))
+                .toList();
+
+        accountEventsPublisher.publishAccountCreated(account, balanceDtos);
+
         return new GetAccountDto(
                 accountId,
                 account.getCustomerId(),
-                balances.stream()
-                        .map(balance -> new BalanceDto(balance.getBalanceCurrencyCode(), balance.getAvailableAmount()))
-                        .toList()
+                balanceDtos
         );
     }
 
