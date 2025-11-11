@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -27,14 +26,14 @@ public class AccountService {
 
     @Transactional
     public GetAccountDto createAccount(CreateAccountDto request) {
-        UUID customerId = request.customerId();
+        Long customerId = request.customerId();
         String country = request.country();
         Instant now = Instant.now();
 
         Account account = new Account(null, customerId, AccountStatus.ACTIVE, country, now);
         accountMapper.insert(account);
 
-        Long accountId = account.id();
+        Long accountId = account.getId();
 
         List<BalanceCurrencyCode> currencies = request.currencies().stream()
                 .map(this::parseCurrency)
@@ -49,9 +48,9 @@ public class AccountService {
 
         return new GetAccountDto(
                 accountId,
-                customerId,
+                account.getCustomerId(),
                 balances.stream()
-                        .map(balance -> new BalanceDto(balance.balanceCurrencyCode(), balance.availableAmount()))
+                        .map(balance -> new BalanceDto(balance.getBalanceCurrencyCode(), balance.getAvailableAmount()))
                         .toList()
         );
     }
@@ -62,10 +61,10 @@ public class AccountService {
                 .orElseThrow(() -> new AccountNotFoundException(accountId));
 
         List<BalanceDto> balances = balanceMapper.findByAccountId(accountId).stream()
-                .map(balance -> new BalanceDto(balance.balanceCurrencyCode(), balance.availableAmount()))
+                .map(balance -> new BalanceDto(balance.getBalanceCurrencyCode(), balance.getAvailableAmount()))
                 .toList();
 
-        return new GetAccountDto(account.id(), account.customerId(), balances);
+        return new GetAccountDto(account.getId(), account.getCustomerId(), balances);
     }
 
     private BalanceCurrencyCode parseCurrency(String value) {
